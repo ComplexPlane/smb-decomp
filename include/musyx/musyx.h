@@ -157,7 +157,7 @@ typedef void (*SND_AUX_CALLBACK)(u8 reason, SND_AUX_INFO *info, void *user);
 void sndAuxCallbackChorus(u8 reason, SND_AUX_INFO *info, void *user);
 void sndAuxCallbackPrepareChorus();
 void sndOutputMode();
-//void sndActive();  // hmm
+void sndActive();  // hmm
 int sndPushGroup();
 void sndPopGroup(void);
 SND_VOICEID sndFXCheck(SND_VOICEID arg0);

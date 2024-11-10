@@ -1,6 +1,10 @@
 #ifndef _SRC_GLOBAL_H_
 #define _SRC_GLOBAL_H_
 
+#include "types.h"
+#include "functions.h"
+#include "variables.h"
+
 #define MAX_PLAYERS 4
 #define MAX_ITEMS 256
 #define MAX_STOBJS 128
