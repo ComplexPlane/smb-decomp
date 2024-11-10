@@ -1,7 +1,7 @@
 ifneq (,$(findstring Windows,$(OS)))
   EXE := .exe
 else
-  WINE ?= wine
+  WINE ?= wibo
 endif
 
 COMPILER_VERSION ?= 1.1
