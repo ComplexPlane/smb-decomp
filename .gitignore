@@ -35,3 +35,4 @@ GMBE8P/
 /.cache/**
 /.clangd/**
 /.idea/**
+.DS_Store
