@@ -1,6 +1,7 @@
 #ifndef _SRC_BALL_H_
 #define _SRC_BALL_H_
 
+#include "global.h"
 #include <dolphin/types.h>
 #include <dolphin/mtx.h>
 

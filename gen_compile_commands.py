@@ -13,7 +13,7 @@ def main():
 
         command = (
             "/usr/bin/cc "
-            f"-I {script_dir / 'src'} -I {script_dir / 'include'} -I {script_dir / 'data'} "
+            f"-I {script_dir / 'src'} -isystem {script_dir / 'include'} -I {script_dir / 'data'} "
             "-m32 -std=c99 "
             "-D __GNUC__ -D NONMATCHING -D C_ONLY "
             f"-c {src_path} -o {src_path.with_suffix('.o')}"

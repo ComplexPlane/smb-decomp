@@ -1,6 +1,8 @@
 #ifndef _SRC_PAUSE_MENU_H_
 #define _SRC_PAUSE_MENU_H_
 
+#include <dolphin/types.h>
+
 struct PauseMenuState
 {
     s32 unk0;

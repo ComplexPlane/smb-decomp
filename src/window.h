@@ -1,6 +1,8 @@
 #ifndef _SRC_WINDOW_H_
 #define _SRC_WINDOW_H_
 
+#include <dolphin/types.h>
+
 enum
 {
 	WINDOW_COLOR_WHITE,

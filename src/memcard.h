@@ -1,6 +1,8 @@
 #ifndef _SRC_MEMCARD_H_
 #define _SRC_MEMCARD_H_
 
+#include <dolphin/types.h>
+
 enum
 {
     /*0*/ MC_MODE_LOAD_GAMEDATA_0,

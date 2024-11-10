@@ -1,6 +1,9 @@
 #ifndef _SRC_OBJ_COLLISION_H_
 #define _SRC_OBJ_COLLISION_H_
 
+#include <dolphin/types.h>
+#include <dolphin/mtx.h>
+
 void ev_obj_collision_init(void);
 void ev_obj_collision_main(void);
 void ev_obj_collision_dest(void);

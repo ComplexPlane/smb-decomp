@@ -1,6 +1,12 @@
 #ifndef _SRC_AVDISP_H_
 #define _SRC_AVDISP_H_
 
+#include "types.h"
+#include <dolphin/gx/GXEnum.h>
+#include <dolphin/gx/GXStruct.h>
+#include <dolphin/mtx.h>
+#include <dolphin/types.h>
+
 // A TEV layer describes how to set up one or more consecutive TEV stages. Each layer is fed an
 // "input" color/alpha argument - the first layer gets RASC/RASA (unless both lighting and vertex
 // colors are disabled, then it gets TEVREG0), and subsequent layers get TEVPREV.

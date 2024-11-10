@@ -1,6 +1,9 @@
 #ifndef _SRC_HUD_H_
 #define _SRC_HUD_H_
 
+#include <dolphin/types.h>
+struct Ball;
+
 void hud_show_pause_menu(void);
 void func_80075E1C(int, struct Sprite *);
 void hud_show_press_start_textbox(int);

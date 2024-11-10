@@ -1,6 +1,8 @@
 #ifndef _SRC_VIBRATION_H_
 #define _SRC_VIBRATION_H_
 
+#include <dolphin/types.h>
+
 enum VibrationState
 {
 	VIBRATION_STATE_0,

@@ -1,6 +1,8 @@
 #ifndef _SRC_REND_EFC_H_
 #define _SRC_REND_EFC_H_
 
+#include <dolphin/types.h>
+
 enum
 {
     REND_EFC_NULL         = 0,

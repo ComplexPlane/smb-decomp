@@ -1,6 +1,8 @@
 #ifndef _SRC_RANKING_SCREEN_H_
 #define _SRC_RANKING_SCREEN_H_
 
+struct ScoreRecord;
+
 // ? draw_title_bar();
 // ? update_ranking_screen();
 // ? draw_ranking_screen();

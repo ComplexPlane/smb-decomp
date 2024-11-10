@@ -1,6 +1,8 @@
 #ifndef _SRC_RECPLAY_CMPR_H_
 #define _SRC_RECPLAY_CMPR_H_
 
+#include <dolphin/types.h>
+
 struct ReplayBallFrame;
 struct ReplayWorldFrame;
 struct ReplayHeader;

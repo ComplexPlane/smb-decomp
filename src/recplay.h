@@ -1,6 +1,9 @@
 #ifndef _SRC_RECPLAY_H_
 #define _SRC_RECPLAY_H_
 
+#include <dolphin/types.h>
+#include <dolphin/mtx.h>
+
 enum
 {
     REPLAY_FLAG_GOAL        = 1 << 0,

@@ -1,7 +1,12 @@
 #ifndef _SRC_STOBJ_H_
 #define _SRC_STOBJ_H_
 
+#include "global.h"
+#include <dolphin/mtx.h>
+#include <dolphin/types.h>
+
 struct PhysicsBall;
+struct StageAnimGroup;
 
 // Stage object (stobj) type
 enum

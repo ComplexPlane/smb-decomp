@@ -1,6 +1,10 @@
 #ifndef _SRC_SHADOW_H_
 #define _SRC_SHADOW_H_
 
+#include <dolphin/gx/GXStruct.h>
+#include <dolphin/mtx.h>
+#include <dolphin/types.h>
+
 struct Struct80092B98_child
 {
     u8 unk0;

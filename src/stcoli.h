@@ -1,6 +1,10 @@
 #ifndef _SRC_STCOLI_H_
 #define _SRC_STCOLI_H_
 
+#include <dolphin/types.h>
+#include <dolphin/mtx.h>
+#include "types.h"
+
 enum
 {
     COLI_FLAG_OCCURRED = 1 << 0, // If at least one ball collision occurred on the current frame

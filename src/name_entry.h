@@ -1,6 +1,8 @@
 #ifndef _SRC_NAME_ENTRY_H_
 #define _SRC_NAME_ENTRY_H_
 
+#include "types.h"
+
 struct PhysicsBall;
 
 extern struct ScoreRecord lbl_802C67D4[4][5];

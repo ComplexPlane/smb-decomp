@@ -1,6 +1,10 @@
 #ifndef _SRC_POOL_H_
 #define _SRC_POOL_H_
 
+#include <dolphin/types.h>
+
+#include "global.h"
+
 enum PoolStatus
 {
     STAT_NULL,

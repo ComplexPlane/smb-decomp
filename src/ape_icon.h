@@ -1,6 +1,10 @@
 #ifndef _SRC_APE_ICON_H_
 #define _SRC_APE_ICON_H_
 
+#include <dolphin/types.h>
+
+struct Sprite;
+
 struct ApeIconInfo
 {
     s32 emotion;

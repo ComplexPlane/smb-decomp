@@ -5,6 +5,8 @@
 #include <dolphin/mtx.h>
 #include <dolphin/gx/GXStruct.h>
 
+#include "global.h"
+
 struct PhysicsBall;
 
 enum

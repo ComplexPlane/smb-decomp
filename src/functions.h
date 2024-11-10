@@ -1,6 +1,8 @@
 #ifndef _SRC_FUNCTIONS_H_
 #define _SRC_FUNCTIONS_H_
 
+#include <dolphin/dvd.h>
+
 #include "types.h"
 
 // ? main();

@@ -1,6 +1,7 @@
 #ifndef _SRC_NL2NGC_H_
 #define _SRC_NL2NGC_H_
 
+#include <dolphin/gx/GXEnum.h>
 #include <dolphin/types.h>
 #include <dolphin/mtx.h>
 #include <dolphin/gx/GXStruct.h>

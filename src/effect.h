@@ -1,6 +1,11 @@
 #ifndef _SRC_EFFECT_H_
 #define _SRC_EFFECT_H_
 
+#include <dolphin/mtx.h>
+#include <dolphin/types.h>
+
+#include "global.h"
+
 enum
 {
     ET_PAPERFRAG,  // 0

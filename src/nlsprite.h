@@ -1,6 +1,8 @@
 #ifndef _SRC_NLSPRITE_H_
 #define _SRC_NLSPRITE_H_
 
+#include <dolphin/types.h>
+
 // Naomi sprite definition from the Naomi SDK.
 typedef struct tagNLsprarg
 {

@@ -1,6 +1,11 @@
 #ifndef _SRC_MOT_APE_H_
 #define _SRC_MOT_APE_H_
 
+#include <dolphin/gx/GXStruct.h>
+#include <dolphin/mtx.h>
+#include <dolphin/types.h>
+struct BodyPart;
+
 extern struct GMA *charaGMAs[8];
 extern GXTexObj *shirtTexObjs[4];
 

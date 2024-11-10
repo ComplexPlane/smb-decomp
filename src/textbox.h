@@ -1,6 +1,7 @@
 #ifndef _SRC_TEXTBOX_H_
 #define _SRC_TEXTBOX_H_
 
+#include <dolphin/types.h>
 enum
 {
     TEXTBOX_STATE_INACTIVE =  0,

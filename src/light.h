@@ -1,7 +1,11 @@
 #ifndef _SRC_LIGHT_H_
 #define _SRC_LIGHT_H_
 
+#include <dolphin/gx/GXStruct.h>
+#include <dolphin/mtx.h>
 #include <dolphin/types.h>
+
+#include "types.h"
 
 // Definition of a single light. Referred to by light groups
 struct Light

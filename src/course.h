@@ -1,6 +1,8 @@
 #ifndef _SRC_COURSE_H_
 #define _SRC_COURSE_H_
 
+#include <dolphin/types.h>
+
 struct MemcardContents;
 struct Sprite;
 

@@ -1,6 +1,9 @@
 #ifndef _SRC_POLYDISP_H_
 #define _SRC_POLYDISP_H_
 
+#include <dolphin/mtx.h>
+#include <dolphin/types.h>
+
 struct PolyDisp
 {
     u32 flags;

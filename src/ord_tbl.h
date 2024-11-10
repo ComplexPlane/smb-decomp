@@ -4,6 +4,8 @@
 #include <dolphin/types.h>
 #include <dolphin/mtx.h>
 
+struct OrdTblNode;
+
 typedef void (*OrdTblDrawFunc)(struct OrdTblNode *);
 
 struct OrdTblNode

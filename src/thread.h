@@ -1,6 +1,8 @@
 #ifndef _SRC_THREAD_H_
 #define _SRC_THREAD_H_
 
+#include <dolphin/types.h>
+
 enum ThreadStatus
 {
     THREAD_STATUS_RUNNING = 0,

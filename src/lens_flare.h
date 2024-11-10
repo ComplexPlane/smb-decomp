@@ -1,6 +1,8 @@
 #ifndef _SRC_LENS_FLARE_H_
 #define _SRC_LENS_FLARE_H_
 
+#include <dolphin/mtx.h>
+
 void lens_flare_init(void);
 void lens_flare_main(void);
 void lens_flare_draw(int cameraId);

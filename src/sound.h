@@ -1,6 +1,9 @@
 #ifndef _SRC_SOUND_H_
 #define _SRC_SOUND_H_
 
+#include <dolphin/mtx.h>
+#include <dolphin/types.h>
+
 struct SoundGroupDesc
 {
     char *groupName;
