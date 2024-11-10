@@ -364,7 +364,7 @@ int func_80065084(int arg0, struct GMAModelEntry *arg1)
 {
 	struct BGPilotWork *work = backgroundInfo.work;
 
-    switch (arg0)             
+    switch (arg0)
     {
     case 0:
         work->unk1C = &arg1->model->texObjs[0];
@@ -395,7 +395,7 @@ int func_80065128(int arg0, struct StageBgObject *arg1)
 {
 	struct BGPilotWork *work = backgroundInfo.work;
 
-    switch (arg0)          
+    switch (arg0)
     {
     case 0:
         work->unk14 = (void *)arg1;

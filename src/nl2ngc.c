@@ -14,12 +14,12 @@
 #include "nl2ngc.h"
 #include "ord_tbl.h"
 
-float s_fogEndZ;
-float s_fogStartZ;
-GXColor s_fogColor;
-GXFogType s_fogType;
-s32 s_fogEnabled;
-u32 s_lightMask;
+float s_nlFogEndZ;
+float s_nlFogStartZ;
+GXColor s_nlFogColor;
+GXFogType s_nlFogType;
+s32 s_nlFogEnabled;
+u32 s_nlLightMask;
 
 struct Color3f s_ambientColor;
 FORCE_BSS_ORDER(s_ambientColor)
@@ -425,7 +425,7 @@ void nlObjPut(struct NlModel *model)
             drawNode->ambientColor.r = s_ambientColor.r;
             drawNode->ambientColor.g = s_ambientColor.g;
             drawNode->ambientColor.b = s_ambientColor.b;
-            drawNode->fogEnabled = s_fogEnabled;
+            drawNode->fogEnabled = s_nlFogEnabled;
             mathutil_mtxA_to_mtx(drawNode->viewFromModel);
             ord_tbl_insert_node(list, &drawNode->node);
         }
@@ -556,7 +556,7 @@ void nlObjPutTrnsl(struct NlModel *model, float alpha)
         node->ambientColor.r = s_ambientColor.r;
         node->ambientColor.g = s_ambientColor.g;
         node->ambientColor.b = s_ambientColor.b;
-        node->fogEnabled = s_fogEnabled;
+        node->fogEnabled = s_nlFogEnabled;
         mathutil_mtxA_to_mtx(node->viewFromModel);
         ord_tbl_insert_node(entry, &node->node);
     }
@@ -674,10 +674,10 @@ static void nlObjPut_InitRenderState(void)
 
     GXSetZMode_cached(GX_ENABLE, s_nlToGXCompare[s_nlMaterialCache.unk7], (!s_nlMaterialCache.unk8));
 
-    if (s_fogEnabled != 0)
-        GXSetFog_cached(s_fogType, s_fogStartZ, s_fogEndZ, 0.1f, 20000.0f, s_fogColor);
+    if (s_nlFogEnabled != 0)
+        GXSetFog_cached(s_nlFogType, s_nlFogStartZ, s_nlFogEndZ, 0.1f, 20000.0f, s_nlFogColor);
     else
-        GXSetFog_cached(GX_FOG_NONE, 0.0f, 100.0f, 0.1f, 20000.0f, s_fogColor);
+        GXSetFog_cached(GX_FOG_NONE, 0.0f, 100.0f, 0.1f, 20000.0f, s_nlFogColor);
 
     s_nlMaterialCache.unkA = 2;
     GXSetCullMode_cached(s_nlToGXCullModes[2]);
@@ -701,7 +701,7 @@ static void nlObjPut_InitRenderState(void)
                   GX_ENABLE,      // enable
                   GX_SRC_REG,     // amb_src
                   GX_SRC_REG,     // mat_src
-                  s_lightMask, // light_mask
+                  s_nlLightMask, // light_mask
                   GX_DF_CLAMP,    // diff_fn
                   GX_AF_SPOT);    // attn_fn
     GXSetTevDirect(GX_TEVSTAGE0);
@@ -755,10 +755,10 @@ static void nlObjPut_SetMaterial(struct NlMesh *pmesh)
         s_nlMaterialCache.unk8 = r26;
     }
 
-    if (s_fogEnabled != 0)
-        GXSetFog_cached(s_fogType, s_fogStartZ, s_fogEndZ, 0.1f, 20000.0f, s_fogColor);
+    if (s_nlFogEnabled != 0)
+        GXSetFog_cached(s_nlFogType, s_nlFogStartZ, s_nlFogEndZ, 0.1f, 20000.0f, s_nlFogColor);
     else
-        GXSetFog_cached(GX_FOG_NONE, 0.0f, 100.0f, 0.1f, 20000.0f, s_fogColor);
+        GXSetFog_cached(GX_FOG_NONE, 0.0f, 100.0f, 0.1f, 20000.0f, s_nlFogColor);
 
     if (mesh.tplTexIdx < 0)
     {
@@ -861,7 +861,7 @@ static void nlObjPut_SetMaterial(struct NlMesh *pmesh)
                           GX_ENABLE,      // enable
                           GX_SRC_REG,     // amb_src
                           GX_SRC_REG,     // mat_src
-                          s_lightMask, // light_mask
+                          s_nlLightMask, // light_mask
                           GX_DF_CLAMP,    // diff_fn
                           GX_AF_SPOT);    // attn_fn
             break;
@@ -1132,10 +1132,10 @@ static void nlObjPutTrnsl_InitRenderState(void)
 
     GXSetZMode_cached(GX_ENABLE, s_nlToGXCompare[s_nlMaterialCache.unk7], (!s_nlMaterialCache.unk8));
 
-    if (s_fogEnabled != 0)
-        GXSetFog_cached(s_fogType, s_fogStartZ, s_fogEndZ, 0.1f, 20000.0f, s_fogColor);
+    if (s_nlFogEnabled != 0)
+        GXSetFog_cached(s_nlFogType, s_nlFogStartZ, s_nlFogEndZ, 0.1f, 20000.0f, s_nlFogColor);
     else
-        GXSetFog_cached(GX_FOG_NONE, 0.0f, 100.0f, 0.1f, 20000.0f, s_fogColor);
+        GXSetFog_cached(GX_FOG_NONE, 0.0f, 100.0f, 0.1f, 20000.0f, s_nlFogColor);
 
     s_nlMaterialCache.unkA = 2;
     GXSetCullMode_cached(s_nlToGXCullModes[2]);
@@ -1159,7 +1159,7 @@ static void nlObjPutTrnsl_InitRenderState(void)
                   GX_ENABLE,      // enable
                   GX_SRC_REG,     // amb_src
                   GX_SRC_REG,     // mat_src
-                  s_lightMask, // light_mask
+                  s_nlLightMask, // light_mask
                   GX_DF_CLAMP,    // diff_fn
                   GX_AF_SPOT);    // attn_fn
     GXSetTevDirect(GX_TEVSTAGE0);
@@ -1213,10 +1213,10 @@ void nlObjPutTrnsl_SetMaterial(struct NlMesh *pmesh)
         s_nlMaterialCache.unk8 = r26;
     }
 
-    if (s_fogEnabled != 0)
-        GXSetFog_cached(s_fogType, s_fogStartZ, s_fogEndZ, 0.1f, 20000.0f, s_fogColor);
+    if (s_nlFogEnabled != 0)
+        GXSetFog_cached(s_nlFogType, s_nlFogStartZ, s_nlFogEndZ, 0.1f, 20000.0f, s_nlFogColor);
     else
-        GXSetFog_cached(GX_FOG_NONE, 0.0f, 100.0f, 0.1f, 20000.0f, s_fogColor);
+        GXSetFog_cached(GX_FOG_NONE, 0.0f, 100.0f, 0.1f, 20000.0f, s_nlFogColor);
 
     if (mesh.tplTexIdx < 0)
     {
@@ -1324,7 +1324,7 @@ void nlObjPutTrnsl_SetMaterial(struct NlMesh *pmesh)
                           GX_ENABLE,      // enable
                           GX_SRC_REG,     // amb_src
                           GX_SRC_REG,     // mat_src
-                          s_lightMask, // light_mask
+                          s_nlLightMask, // light_mask
                           GX_DF_CLAMP,    // diff_fn
                           GX_AF_SPOT);    // attn_fn
             break;
@@ -1457,7 +1457,7 @@ void nl2ngc_draw_model_alpha_sort_all_alt(struct NlModel *model, float alpha)
 
 void nlLightMask(u32 lightMask)
 {
-    s_lightMask = lightMask;
+    s_nlLightMask = lightMask;
 }
 
 void nlLightAmbRGB(float r, float g, float b)
@@ -1469,21 +1469,21 @@ void nlLightAmbRGB(float r, float g, float b)
 
 void nlSetFog(int enabled)
 {
-    s_fogEnabled = enabled;
+    s_nlFogEnabled = enabled;
 }
 
 void nlSetFogType(u32 a, float b, float c)
 {
-    s_fogType = a;
-    s_fogStartZ = b;
-    s_fogEndZ = c;
+    s_nlFogType = a;
+    s_nlFogStartZ = b;
+    s_nlFogEndZ = c;
 }
 
 void nlSetFogColor(int r, int g, int b)
 {
-    s_fogColor.r = r;
-    s_fogColor.g = g;
-    s_fogColor.b = b;
+    s_nlFogColor.r = r;
+    s_nlFogColor.g = g;
+    s_nlFogColor.b = b;
 }
 
 // Draw all opaque meshes in model immediately
@@ -1555,7 +1555,7 @@ static void nlObjPut_TrnslList_OP(struct DrawModelDeferredNode *a)
         load_light_group_cached(a->lightGroup);
         nlLightAmbRGB(a->ambientColor.r, a->ambientColor.g, a->ambientColor.b);
     }
-    s_fogEnabled = a->fogEnabled;
+    s_nlFogEnabled = a->fogEnabled;
     nlObjPut_TrnslList(a->model);
 
     s_renderParams.materialColor.r = f31;
@@ -1632,7 +1632,7 @@ void nlObjPutTrnsl_TrnslList_OP(struct DrawAlphaModelDeferredNode *a)
         load_light_group_cached(a->lightGroup);
         nlLightAmbRGB(a->ambientColor.r, a->ambientColor.g, a->ambientColor.b);
     }
-    s_fogEnabled = a->fogEnabled;
+    s_nlFogEnabled = a->fogEnabled;
     nlObjPutTrnsl_TrnslList(a->model);
 
     s_renderParams.materialColor.r = f31;

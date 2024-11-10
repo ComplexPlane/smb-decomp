@@ -35,14 +35,14 @@ static struct BGModelSearch sandBgModelFind[] =
     { BG_MDL_CMP_END,  NULL },
 };
 
-static struct BGModelSearch bonusBgObjFind[] =
+static struct BGModelSearch sandBgObjFind[] =
 {
     { BG_MDL_CMP_PREFIX, "SND_PIRAM_CLOUD" },
     { BG_MDL_CMP_PREFIX, "SND_FUNSUI_WATER" },
     { BG_MDL_CMP_END,    NULL },
 };
 
-struct MyDrawNode
+struct SandDrawNode
 {
     struct OrdTblNode node;
     s32 unk8;
@@ -61,13 +61,13 @@ static void func_8005C3B8(struct RenderEffect *);
 static void func_8005C4D0(struct RenderEffect *);
 static void func_8005C540(struct RenderEffect *);
 static void func_8005C55C(int, struct RenderEffect *);
-static void lbl_8005CB90(struct MyDrawNode *);
+static void lbl_8005CB90(struct SandDrawNode *);
 static void lbl_8005CC4C(struct MyDrawNode2 *);
 static void lbl_8005CEAC(struct GCMMatState_Unit *);
 static void lbl_8005D4B0(struct GCMMatState_Unit *);
 static void lbl_8005DCA8(struct GCMMatState_Unit *);
-static int model_find_proc(int, struct GMAModelEntry *);
-static int obj_find_proc(int, struct StageBgObject *);
+static int bg_sand_model_find_proc(int, struct GMAModelEntry *);
+static int bg_sand_obj_find_proc(int, struct StageBgObject *);
 
 static struct RenderEffectFuncs heatEffectFuncs =
 {
@@ -100,7 +100,7 @@ void bg_sand_init(void)
     bg_default_init();
     if (work->unk0 == 0)
     {
-        find_background_gma_models(sandBgModelFind, model_find_proc);
+        find_background_gma_models(sandBgModelFind, bg_sand_model_find_proc);
         work->unk0 = 1;
     }
     work->unk40 = 0;
@@ -108,13 +108,13 @@ void bg_sand_init(void)
     find_background_objects(
         decodedStageLzPtr->bgObjects,
         decodedStageLzPtr->bgObjectCount,
-        bonusBgObjFind,
-        obj_find_proc);
+        sandBgObjFind,
+        bg_sand_obj_find_proc);
     find_background_objects(
         decodedStageLzPtr->fgObjects,
         decodedStageLzPtr->fgObjectCount,
-        bonusBgObjFind,
-        obj_find_proc);
+        sandBgObjFind,
+        bg_sand_obj_find_proc);
     if (modeCtrl.unk30 < 2)
     {
         struct RenderEffect rendEfc;
@@ -236,7 +236,7 @@ void bg_sand_draw(void)
     struct OrdTblNode *temp_r25;
     u32 var_r30;
     struct StageBgObject **var_r27;
-    struct MyDrawNode *temp_r24;
+    struct SandDrawNode *temp_r24;
     struct MyDrawNode2 *temp_r24_2;
     int i;
 
@@ -464,7 +464,7 @@ static void func_8005C55C(int arg0, struct RenderEffect *arg1)
     GXSetTevSwapMode_cached(GX_TEVSTAGE0, GX_TEV_SWAP0, GX_TEV_SWAP0);
 }
 
-static void lbl_8005CB90(struct MyDrawNode *arg0)
+static void lbl_8005CB90(struct SandDrawNode *arg0)
 {
     struct BGSandWork *work = backgroundInfo.work;
     struct StageBgObject *temp_r30 = arg0->unkC;
@@ -876,7 +876,7 @@ static void lbl_8005DCA8(struct GCMMatState_Unit *arg0)
     arg0->unkC = sp2C;
 }
 
-static int model_find_proc(int index, struct GMAModelEntry *entry)
+static int bg_sand_model_find_proc(int index, struct GMAModelEntry *entry)
 {
     struct BGSandWork *work = backgroundInfo.work;
 
@@ -913,7 +913,7 @@ static int model_find_proc(int index, struct GMAModelEntry *entry)
     return 1;
 }
 
-static int obj_find_proc(int index, struct StageBgObject *bgObj)
+static int bg_sand_obj_find_proc(int index, struct StageBgObject *bgObj)
 {
     struct BGSandWork *work = backgroundInfo.work;
 

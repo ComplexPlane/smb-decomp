@@ -877,7 +877,7 @@ static void u_free_character_graphics(int chara, int lod)
     OSSetCurrentHeap(oldHeap);
 }
 
-static struct GMAShape *next_shape(struct GMAShape *mesh);
+static struct GMAShape *mot_ape_next_shape(struct GMAShape *mesh);
 
 static void *u_find_some_mesh_with_red(struct GMAModel *model)
 {
@@ -889,7 +889,7 @@ static void *u_find_some_mesh_with_red(struct GMAModel *model)
     {
         if (mesh->materialColor.r == 0xFF)
             return mesh;
-        mesh = next_shape(mesh);
+        mesh = mot_ape_next_shape(mesh);
     }
     return NULL;
 }
@@ -973,7 +973,7 @@ struct Struct8008AE2C
     u32 unkC;
 };
 
-static struct GMAShape *next_shape(struct GMAShape *mesh)
+static struct GMAShape *mot_ape_next_shape(struct GMAShape *mesh)
 {
     int i;
     u8 *ret = (u8 *)mesh + 0x60;

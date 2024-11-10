@@ -37,8 +37,8 @@ static struct BGModelSearch bonusBgObjFind[] =
 
 static void lbl_80061B58(void);
 static void bg_bonus_envmap_ball(struct GCMMatState_Unit *a);
-static int model_find_proc(int, struct GMAModelEntry *);
-static int obj_find_proc(int, struct StageBgObject *);
+static int bg_bonus_model_find_proc(int, struct GMAModelEntry *);
+static int bg_bonus_obj_find_proc(int, struct StageBgObject *);
 
 void bg_bonus_init(void)
 {
@@ -54,19 +54,19 @@ void bg_bonus_init(void)
     if (!work->initialized)
     {
         work->starpointCount = 0;
-        find_background_gma_models(bonusBgModelFind, model_find_proc);
+        find_background_gma_models(bonusBgModelFind, bg_bonus_model_find_proc);
         work->initialized = TRUE;
     }
     find_background_objects(
         decodedStageLzPtr->bgObjects,
         decodedStageLzPtr->bgObjectCount,
         bonusBgObjFind,
-        obj_find_proc);
+        bg_bonus_obj_find_proc);
     find_background_objects(
         decodedStageLzPtr->fgObjects,
         decodedStageLzPtr->fgObjectCount,
         bonusBgObjFind,
-        obj_find_proc);
+        bg_bonus_obj_find_proc);
 
     starpoint = work->starpoints;
     for (i = work->starpointCount; i > 0; i--, starpoint++)
@@ -290,7 +290,7 @@ static void bg_bonus_envmap_ball(struct GCMMatState_Unit *a)
     a->unkC = spC;
 }
 
-static int model_find_proc(int index, struct GMAModelEntry *entry)
+static int bg_bonus_model_find_proc(int index, struct GMAModelEntry *entry)
 {
     struct BGBonusWork *work = backgroundInfo.work;
 
@@ -321,7 +321,7 @@ static int model_find_proc(int index, struct GMAModelEntry *entry)
     return 1;
 }
 
-static int obj_find_proc(int index, struct StageBgObject *bgObj)
+static int bg_bonus_obj_find_proc(int index, struct StageBgObject *bgObj)
 {
     struct BGBonusWork *work = backgroundInfo.work;
 

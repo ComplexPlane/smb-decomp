@@ -23,7 +23,7 @@ static struct BGModelSearch jungleBgObjFind[] =
     { BG_MDL_CMP_END,    NULL },
 };
 
-static int obj_find_proc(int, struct StageBgObject *);
+static int bg_jungle_obj_find_proc(int, struct StageBgObject *);
 
 void bg_jungle_init(void)
 {
@@ -43,12 +43,12 @@ void bg_jungle_init(void)
         decodedStageLzPtr->bgObjects,
         decodedStageLzPtr->bgObjectCount,
         jungleBgObjFind,
-        obj_find_proc);
+        bg_jungle_obj_find_proc);
     find_background_objects(
         decodedStageLzPtr->fgObjects,
         decodedStageLzPtr->fgObjectCount,
         jungleBgObjFind,
-        obj_find_proc);
+        bg_jungle_obj_find_proc);
     if (work->cloudCount == 0)
         return;
 
@@ -184,7 +184,7 @@ void bg_jungle_draw(void)
 
 void bg_jungle_interact(int a) {}
 
-static int obj_find_proc(int index, struct StageBgObject *bgObj)
+static int bg_jungle_obj_find_proc(int index, struct StageBgObject *bgObj)
 {
     struct BGJungleWork *work = backgroundInfo.work;
 

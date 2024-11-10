@@ -35,8 +35,8 @@ static struct BGModelSearch spaceBgObjFind[] =
 };
 
 static void lbl_800609AC(struct GCMMatState_Unit *);
-static int model_find_proc(int, struct GMAModelEntry *);
-static int obj_find_proc(int, struct StageBgObject *);
+static int bg_space_model_find_proc(int, struct GMAModelEntry *);
+static int bg_space_obj_find_proc(int, struct StageBgObject *);
 
 void lens_flare_set_scale(float);
 
@@ -83,7 +83,7 @@ void bg_space_init(void)
     backgroundInfo.unk8 |= 1;
     if (work->unk0 == 0)
     {
-        find_background_gma_models(spaceBgModelFind, model_find_proc);
+        find_background_gma_models(spaceBgModelFind, bg_space_model_find_proc);
         work->unk0 = 1;
     }
     work->corePos.x = 0.0f;
@@ -96,12 +96,12 @@ void bg_space_init(void)
         decodedStageLzPtr->bgObjects,
         decodedStageLzPtr->bgObjectCount,
         spaceBgObjFind,
-        obj_find_proc);
+        bg_space_obj_find_proc);
     find_background_objects(
         decodedStageLzPtr->fgObjects,
         decodedStageLzPtr->fgObjectCount,
         spaceBgObjFind,
-        obj_find_proc);
+        bg_space_obj_find_proc);
 
     switch (modeCtrl.gameType)
     {
@@ -321,7 +321,7 @@ static void lbl_800609AC(struct GCMMatState_Unit *arg0)
     arg0->unkC = sp14;
 }
 
-static int model_find_proc(int index, struct GMAModelEntry *entry)
+static int bg_space_model_find_proc(int index, struct GMAModelEntry *entry)
 {
     struct BGSpaceWork *work = backgroundInfo.work;
 
@@ -341,7 +341,7 @@ static int model_find_proc(int index, struct GMAModelEntry *entry)
     return 1;
 }
 
-static int obj_find_proc(int index, struct StageBgObject *bgObj)
+static int bg_space_obj_find_proc(int index, struct StageBgObject *bgObj)
 {
     struct BGSpaceWork *work = backgroundInfo.work;
 

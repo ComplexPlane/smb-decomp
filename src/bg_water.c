@@ -49,8 +49,8 @@ static void bg_water_envmap_background();
 static void func_8005ED80(struct GCMMatState_Unit *);
 static void bg_water_envmap_ball(struct GCMMatState_Unit *);
 static void lbl_8005F520(struct GCMMatState_Unit *);
-static int model_find_proc(int, struct GMAModelEntry *);
-static int obj_find_proc(int, struct StageBgObject *);
+static int bg_water_model_find_proc(int, struct GMAModelEntry *);
+static int bg_water_obj_find_proc(int, struct StageBgObject *);
 
 void bg_water_init(void)
 {
@@ -66,7 +66,7 @@ void bg_water_init(void)
     if (work->unk0 == 0)
     {
         window_set_cursor_pos(4, 4);
-        find_background_gma_models(waterBgModelFind, model_find_proc);
+        find_background_gma_models(waterBgModelFind, bg_water_model_find_proc);
         work->unk0 = 1;
     }
     clear_background_parts_flag();
@@ -75,12 +75,12 @@ void bg_water_init(void)
         decodedStageLzPtr->bgObjects,
         decodedStageLzPtr->bgObjectCount,
         waterBgObjFind,
-        obj_find_proc);
+        bg_water_obj_find_proc);
     find_background_objects(
         decodedStageLzPtr->fgObjects,
         decodedStageLzPtr->fgObjectCount,
         waterBgObjFind,
-        obj_find_proc);
+        bg_water_obj_find_proc);
     backgroundInfo.unk14.x = RAND_FLOAT() - 0.5f;
     backgroundInfo.unk14.y = RAND_FLOAT() - 0.5f;
     backgroundInfo.unk14.z = RAND_FLOAT() - 0.5f;
@@ -457,7 +457,7 @@ static asm void lbl_8005F520(struct GCMMatState_Unit *arg0)
 #pragma peephole on
 #endif
 
-static int model_find_proc(int index, struct GMAModelEntry *entry)
+static int bg_water_model_find_proc(int index, struct GMAModelEntry *entry)
 {
     struct BGWaterWork *work = backgroundInfo.work;
 
@@ -488,7 +488,7 @@ static int model_find_proc(int index, struct GMAModelEntry *entry)
     return 1;
 }
 
-static int obj_find_proc(int index, struct StageBgObject *bgObj)
+static int bg_water_obj_find_proc(int index, struct StageBgObject *bgObj)
 {
     struct BGWaterWork *work = backgroundInfo.work;
     struct Effect effect;

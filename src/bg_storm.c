@@ -21,7 +21,7 @@ static struct BGModelSearch stormBgModelFind[] =
     { BG_MDL_CMP_END,  NULL },
 };
 
-static int model_find_proc(int, struct GMAModelEntry *);
+static int bg_storm_model_find_proc(int, struct GMAModelEntry *);
 
 void bg_storm_init(void)
 {
@@ -31,7 +31,7 @@ void bg_storm_init(void)
 
     bg_default_init();
     if (work->unk0 == 0)
-        find_background_gma_models(stormBgModelFind, model_find_proc);
+        find_background_gma_models(stormBgModelFind, bg_storm_model_find_proc);
     work->unk10.x = (RAND_FLOAT() - 0.5f) * 6.0f;
     work->unk10.y = (RAND_FLOAT() - 0.5f) * 9.0f;
     work->unk10.z = (RAND_FLOAT() - 0.5f) * 6.0f;
@@ -245,7 +245,7 @@ void bg_storm_draw(void)
 
 void bg_storm_interact(int a) {}
 
-static int model_find_proc(int index, struct GMAModelEntry *entry)
+static int bg_storm_model_find_proc(int index, struct GMAModelEntry *entry)
 {
     struct BGStormWork *work = backgroundInfo.work;
 

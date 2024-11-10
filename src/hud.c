@@ -722,7 +722,7 @@ static void title_sprite_main(s8 *arg0, struct Sprite *sprite)
         lbl_802F2010 += 0.25 * (1.0 - lbl_802F2010);
 }
 
-extern u32 smileFaceTable[];
+extern const u32 smileFaceTable[];
 
 static void title_sprite_draw(struct Sprite *sprite)
 {

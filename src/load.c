@@ -42,7 +42,7 @@ static void mram_to_aram_callback(u32 arqRequestPtr)
 }
 
 static struct FileCacheEntry *alloc_file_cache_entry(s32);
-static void dvd_read_callback(s32, DVDFileInfo *);
+static void load_dvd_read_callback(s32, DVDFileInfo *);
 static int get_next_file_id(int id);
 
 void load_main(void)
@@ -78,7 +78,7 @@ void load_main(void)
     case 2:
         // Read from DVD
         dvdReadStatus = 1;
-        if (DVDReadAsync(&info->dvdFile, dvdReadBuffer, info->transferSize, info->fileOffset, dvd_read_callback) != 1)
+        if (DVDReadAsync(&info->dvdFile, dvdReadBuffer, info->transferSize, info->fileOffset, load_dvd_read_callback) != 1)
             OSPanic("load.c", 128, "cannot read file\n");
         info->state = 4;
         break;
@@ -118,7 +118,7 @@ void load_main(void)
         {
             info->transferSize = MIN(info->bytesLeft, 0x18000);
             dvdReadStatus = 1;
-            if (DVDReadAsync(&info->dvdFile, dvdReadBuffer, info->transferSize, info->fileOffset, dvd_read_callback) != 1)
+            if (DVDReadAsync(&info->dvdFile, dvdReadBuffer, info->transferSize, info->fileOffset, load_dvd_read_callback) != 1)
                 OSPanic("load.c", 155, "cannot read file\n");
             info->state = 4;
         }
@@ -211,7 +211,7 @@ u32 file_size(struct File *file)
     }
 }
 
-static void dvd_read_callback(s32 result, DVDFileInfo *dvdFile)
+static void load_dvd_read_callback(s32 result, DVDFileInfo *dvdFile)
 {
     if (result == DVD_RESULT_FATAL_ERROR)
         dvdReadStatus = -1;

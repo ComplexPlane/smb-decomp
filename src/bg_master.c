@@ -36,8 +36,8 @@ struct BGModelSearch masterBgObjFind[] =
 };
 
 static void lbl_80063AD8(struct GCMMatState_Unit *);
-static int model_find_proc(int, struct GMAModelEntry *);
-static int obj_find_proc(int, struct StageBgObject *);
+static int bg_master_model_find_proc(int, struct GMAModelEntry *);
+static int bg_master_obj_find_proc(int, struct StageBgObject *);
 
 void bg_master_init(void)
 {
@@ -52,13 +52,13 @@ void bg_master_init(void)
     if (work->unk0 == 0)
     {
         work->miniCloudModelsCount = 0;
-        find_background_gma_models(masterBgModelFind, model_find_proc);
+        find_background_gma_models(masterBgModelFind, bg_master_model_find_proc);
         work->unk0 = 1;
     }
     work->unk8 = 0;
     work->unk170 = 0;
-    find_background_objects(decodedStageLzPtr->bgObjects, decodedStageLzPtr->bgObjectCount, masterBgObjFind, obj_find_proc);
-    find_background_objects(decodedStageLzPtr->fgObjects, decodedStageLzPtr->fgObjectCount, masterBgObjFind, obj_find_proc);
+    find_background_objects(decodedStageLzPtr->bgObjects, decodedStageLzPtr->bgObjectCount, masterBgObjFind, bg_master_obj_find_proc);
+    find_background_objects(decodedStageLzPtr->fgObjects, decodedStageLzPtr->fgObjectCount, masterBgObjFind, bg_master_obj_find_proc);
     if (work->unk8 != 0)
     {
         work->unk16C = 0;
@@ -348,7 +348,7 @@ static void lbl_80063AD8(struct GCMMatState_Unit *arg0)
     arg0->unkC = sp2C;
 }
 
-static int model_find_proc(int index, struct GMAModelEntry *entry)
+static int bg_master_model_find_proc(int index, struct GMAModelEntry *entry)
 {
     struct BGMasterWork *work = backgroundInfo.work;
 
@@ -377,7 +377,7 @@ static int model_find_proc(int index, struct GMAModelEntry *entry)
     return 1;
 }
 
-static int obj_find_proc(int index, struct StageBgObject *bgObj)
+static int bg_master_obj_find_proc(int index, struct StageBgObject *bgObj)
 {
     struct BGMasterWork *work = backgroundInfo.work;
     struct Effect effect;

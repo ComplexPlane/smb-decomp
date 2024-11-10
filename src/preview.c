@@ -56,7 +56,7 @@ void preview_create(struct Preview *preview, char *filename, int index, u32 widt
     preview_init_common(preview, filename, index, width, height, format);
 }
 
-static void read_callback(s32 result, DVDFileInfo *fileInfo)
+static void preview_read_callback(s32 result, DVDFileInfo *fileInfo)
 {
     struct Preview *preview = fileInfo->cb.userData;
 
@@ -92,7 +92,7 @@ void start_preview_image_read(struct Preview *preview, int index)
         preview->imagePtr,  // addr
         preview->size,  // length
         preview->size * index,  // offset
-        read_callback)  // callback
+        preview_read_callback)  // callback
         != 1)
     {
         OSPanic("preview.c", 114, "cannot DVDReadAsync");

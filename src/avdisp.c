@@ -31,7 +31,7 @@ static float s_ambientRed; // Red of AMB of lighting equation: MAT * (RAS + AMB)
 static float s_ambientGreen; // Green of AMB in lighting equation: MAT * (RAS + AMB)
 static float s_ambientBlue; // Blue of AMB in lighting equation: MAT * (RAS + AMB)
 static float s_materialAlpha; // Alpha of MAT in lighting equation: MAT * (RAS + AMB)
-static u32 s_lightMask;
+static u32 s_avdispLightMask;
 static float s_boundSphereScale;
 static GXCullMode s_cullMode;
 static EnvMapFunc lbl_802F20EC;
@@ -47,11 +47,11 @@ static s32 s_usePostMultiplyTevStage;
 static GXColor s_postMultiplyColor;
 static s32 s_usePostAddTevStage;
 static GXColor s_postAddColor;
-static s32 s_fogEnabled;
-static u32 s_fogType;
-static GXColor s_fogColor;
-static float s_fogStartZ;
-static float s_fogEndZ;
+static s32 s_avdispFogEnabled;
+static u32 s_avdispFogType;
+static GXColor s_avdispFogColor;
+static float s_avdispFogStartZ;
+static float s_avdispFogEndZ;
 
 static char *invalidModelName = "Invalid Model";
 
@@ -101,7 +101,7 @@ static struct
 
 static GXTexObj s_specularTexObj;
 static u8 filler_802B4F50[0x10];
-static u8 lzssHeader[32] ATTRIBUTE_ALIGN(32);
+static u8 avdispLzssHeader[32] ATTRIBUTE_ALIGN(32);
 static u8 unknownTexImg[64];
 
 static int get_texture_max_lod(int width, int height);
@@ -266,7 +266,7 @@ void avdisp_init(void)
     s_ambientRed = 1.0f;
     s_boundSphereScale = 1.0f;
     s_materialAlpha = 1.0f;
-    s_lightMask = 1;
+    s_avdispLightMask = 1;
     u_customMaterialFunc = NULL;
     init_some_texture();
     sp8.x = 0.0f;
@@ -374,10 +374,10 @@ struct GMA *load_gma(char *fileName, struct TPL *tpl)
             return NULL;
 
         // Read LZSS header
-        if (file_read(&file, lzssHeader, 32, 0) < 0)
+        if (file_read(&file, avdispLzssHeader, 32, 0) < 0)
             OSPanic("avdisp.c", 684, "cannot dvd_read");
-        compressedSize = OSRoundUp32B(__lwbrx(lzssHeader, 0));
-        size = OSRoundUp32B(__lwbrx(lzssHeader, 4));
+        compressedSize = OSRoundUp32B(__lwbrx(avdispLzssHeader, 0));
+        size = OSRoundUp32B(__lwbrx(avdispLzssHeader, 4));
 
         gma = OSAlloc(sizeof(*gma) + size);  // GMA struct followed by raw file data
         if (gma == NULL)
@@ -520,10 +520,10 @@ struct TPL *load_tpl(char *fileName)
             return NULL;
 
         // Read LZSS header
-        if (file_read(&file, lzssHeader, 32, 0) < 0)
+        if (file_read(&file, avdispLzssHeader, 32, 0) < 0)
             OSPanic("avdisp.c", 822, "cannot dvd_read");
-        compressedSize = OSRoundUp32B(__lwbrx(lzssHeader, 0));
-        size = OSRoundUp32B(__lwbrx(lzssHeader, 4));
+        compressedSize = OSRoundUp32B(__lwbrx(avdispLzssHeader, 0));
+        size = OSRoundUp32B(__lwbrx(avdispLzssHeader, 4));
 
         tpl = OSAlloc(12 + size);  // TPL struct followed by raw file data
         if (tpl == NULL)
@@ -688,7 +688,7 @@ void avdisp_set_alpha(float alpha)
 
 void avdisp_set_light_mask(u32 lightMask)
 {
-    s_lightMask = lightMask;
+    s_avdispLightMask = lightMask;
 }
 
 void avdisp_set_inf_light_dir(Vec *dir)
@@ -760,7 +760,7 @@ struct GMAEffVtxInfo *avdisp_get_eff_vtxinfo(struct GMAModel *model)
 #pragma force_active reset
 
 // Returns the shape that follows after the given shape and all of its display lists
-static inline struct GMAShape *next_shape(struct GMAShape *shape)
+static inline struct GMAShape *avdisp_next_shape(struct GMAShape *shape)
 {
     u8 *ptr = shape->dispLists;
     int i;
@@ -807,7 +807,7 @@ void set_shape_flags_in_model(struct GMAModel *model, u32 flags)
         for (i = 0; i < model->opaqueShapeCount + model->translucentShapeCount; i++)
         {
             shape->flags |= flags;
-            shape = next_shape(shape);
+            shape = avdisp_next_shape(shape);
         }
     }
 }
@@ -871,10 +871,10 @@ static inline struct GMAShape *draw_shape_deferred(struct GMAModel *model, struc
         node->unk68 = s_postMultiplyColor;
     if (node->s_usePostAddTevStage)
         node->unk6C = s_postAddColor;
-    node->fogEnabled = s_fogEnabled;
+    node->fogEnabled = s_avdispFogEnabled;
     mathutil_mtxA_to_mtx(node->mtx);
     ord_tbl_insert_node(entry, &node->node);
-    return next_shape(shape);
+    return avdisp_next_shape(shape);
 }
 
 // Draw opaque shapes immediately and depth-sort translucent shapes, a reasonable default
@@ -1093,7 +1093,7 @@ static inline struct GMAShape *init_shape_render_flags(struct GMAShape *shape)
         shape->flags |= GMA_SHAPE_FLAG_VERT_COLORS;
     if (shape->tevLayerCount == 0)
         shape->flags |= GMA_SHAPE_FLAG_SIMPLE_MATERIAL;
-    return next_shape(shape);
+    return avdisp_next_shape(shape);
 }
 
 static GXTexObj *init_model(struct GMAModel *model, struct TPL *tpl, GXTexObj *texObj)
@@ -1218,8 +1218,8 @@ static void draw_shape_deferred_callback(struct DrawShapeDeferredNode *node)
         spC = s_postAddColor;
         s_postAddColor = node->unk6C;
     }
-    fogEnabled = s_fogEnabled;
-    s_fogEnabled = node->fogEnabled;
+    fogEnabled = s_avdispFogEnabled;
+    s_avdispFogEnabled = node->fogEnabled;
     if (u_customMaterialFunc == NULL)
         init_tev_material_cache(node->model, node->shape);
     draw_shape(node->model, node->shape, node->tevLayers);
@@ -1235,7 +1235,7 @@ static void draw_shape_deferred_callback(struct DrawShapeDeferredNode *node)
     s_usePostAddTevStage = r23;
     if (node->s_usePostAddTevStage)
         s_postAddColor = spC;
-    s_fogEnabled = fogEnabled;
+    s_avdispFogEnabled = fogEnabled;
     s_materialAlpha = 1.0f;
 }
 
@@ -1298,23 +1298,23 @@ void avdisp_set_post_add_color(float r, float g, float b, float a)
 // ObjPutSetFog
 void avdisp_enable_fog(int isEnabled)
 {
-    s_fogEnabled = isEnabled;
+    s_avdispFogEnabled = isEnabled;
 }
 
 // ObjPutSetFogType
 void avdisp_set_fog_params(int a, float b, float c)
 {
-    s_fogType = a;
-    s_fogStartZ = b;
-    s_fogEndZ = c;
+    s_avdispFogType = a;
+    s_avdispFogStartZ = b;
+    s_avdispFogEndZ = c;
 }
 
 // ObjPutSetFogColor
 void avdisp_set_fog_color(u8 r, u8 g, u8 b)
 {
-    s_fogColor.r = r;
-    s_fogColor.g = g;
-    s_fogColor.b = b;
+    s_avdispFogColor.r = r;
+    s_avdispFogColor.g = g;
+    s_avdispFogColor.b = b;
 }
 
 // sets the transform matrices used with the GX_VA_PNMTXIDX vertex attribute
@@ -1394,7 +1394,7 @@ static struct GMAShape *draw_shape(struct GMAModel *model, struct GMAShape *shap
     }
     else
     {
-        return next_shape(shape);
+        return avdisp_next_shape(shape);
     }
     return (struct GMAShape *)dlist;
 }
@@ -1582,10 +1582,10 @@ static void init_tev_material_cache(struct GMAModel *model, struct GMAShape *sha
     else
         GXLoadTexMtxImm(s_identityTexMtx, GX_TEXMTX1, GX_MTX3x4);
     GXSetZMode_cached(s_zModeCompareEnable, s_zModeCompareFunc, s_zModeUpdateEnable);
-    if (s_fogEnabled != 0)
-        GXSetFog_cached(s_fogType, s_fogStartZ, s_fogEndZ, 0.1f, 20000.0f, s_fogColor);
+    if (s_avdispFogEnabled != 0)
+        GXSetFog_cached(s_avdispFogType, s_avdispFogStartZ, s_avdispFogEndZ, 0.1f, 20000.0f, s_avdispFogColor);
     else
-        GXSetFog_cached(GX_FOG_NONE, 0.0f, 100.0f, 0.1f, 20000.0f, s_fogColor);
+        GXSetFog_cached(GX_FOG_NONE, 0.0f, 100.0f, 0.1f, 20000.0f, s_avdispFogColor);
     if (shape->flags & (GMA_SHAPE_FLAG_CUSTOM_MAT_AMB_COLOR | GMA_SHAPE_FLAG_SIMPLE_MATERIAL))
         s_materialCache.materialColor = shape->materialColor;
     else
@@ -1940,7 +1940,7 @@ static void build_tev_material(struct GMAShape *shape, struct GMATevLayer *model
                     GX_ENABLE,  // enable
                     GX_SRC_REG,  // amb_src
                     GX_SRC_VTX,  // mat_src
-                    s_lightMask,  // light_mask
+                    s_avdispLightMask,  // light_mask
                     GX_DF_CLAMP,  // diff_fn
                     GX_AF_SPOT);  // attn_fn
             }
@@ -1964,19 +1964,19 @@ static void build_tev_material(struct GMAShape *shape, struct GMATevLayer *model
                     GX_ENABLE,  // enable
                     GX_SRC_REG,  // amb_src
                     GX_SRC_REG,  // mat_src
-                    s_lightMask,  // light_mask
+                    s_avdispLightMask,  // light_mask
                     GX_DF_CLAMP,  // diff_fn
                     GX_AF_SPOT);  // attn_fn
             }
         }
     }
 
-    if (s_fogEnabled)
+    if (s_avdispFogEnabled)
     {
         if (shape->flags & GMA_SHAPE_FLAG_NO_FOG)
-            GXSetFog_cached(GX_FOG_NONE, 0.0f, 100.0f, 0.1f, 20000.0f, s_fogColor);
+            GXSetFog_cached(GX_FOG_NONE, 0.0f, 100.0f, 0.1f, 20000.0f, s_avdispFogColor);
         else
-            GXSetFog_cached(s_fogType, s_fogStartZ, s_fogEndZ, 0.1f, 20000.0f, s_fogColor);
+            GXSetFog_cached(s_avdispFogType, s_avdispFogStartZ, s_avdispFogEndZ, 0.1f, 20000.0f, s_avdispFogColor);
     }
 
     if (s_materialCache.colorIn != colorIn)

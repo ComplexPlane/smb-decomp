@@ -2454,13 +2454,13 @@ static struct Blah *lbl_801E31E4[4] =
     lbl_801E307C,
 };
 
-struct MyDrawNode
+struct EndingDrawNode
 {
     struct OrdTblNode node;
     struct EndingSceneCharacter *unk8;
 };
 
-static void lbl_800BCD30(struct MyDrawNode *);
+static void lbl_800BCD30(struct EndingDrawNode *);
 
 static void ending_chara_draw(void)
 {
@@ -2474,7 +2474,7 @@ static void ending_chara_draw(void)
     struct Blah *var_r25;
     struct GMAModel *model;
     struct OrdTblNode *entry;
-    struct MyDrawNode *node;
+    struct EndingDrawNode *node;
     Mtx sp38;
     Vec sp2C;
     Vec sp20;
@@ -2586,7 +2586,7 @@ static void ending_chara_draw(void)
     }
 }
 
-static void lbl_800BCD30(struct MyDrawNode *node)
+static void lbl_800BCD30(struct EndingDrawNode *node)
 {
     struct EndingSceneCharacter *chara = node->unk8;
     s16 *r29 = coloredBallPartModelIDs[chara->unk56];

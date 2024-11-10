@@ -83,7 +83,7 @@ char **bitmapNames[] =
 
 u32 lbl_802F04A8 = 0xFFFFFFFF;
 
-static u8 lzssHeader[0x20] __attribute__((aligned(32)));
+static u8 bitmapLzssHeader[0x20] __attribute__((aligned(32)));
 
 void bitmap_draw(struct Bitmap *a);
 
@@ -122,10 +122,10 @@ struct TPL *bitmap_load_tpl(char *filename)
         void *lzData;
 
         // Read LZSS header
-        if (file_read(&file, lzssHeader, 0x20, 0) < 0)
+        if (file_read(&file, bitmapLzssHeader, 0x20, 0) < 0)
             return 0;
-        compressedSize = OSRoundUp32B(__lwbrx(lzssHeader, 0));
-        size = OSRoundUp32B(__lwbrx(lzssHeader, 4));
+        compressedSize = OSRoundUp32B(__lwbrx(bitmapLzssHeader, 0));
+        size = OSRoundUp32B(__lwbrx(bitmapLzssHeader, 4));
 
         tpl = OSAlloc(size + 16);
         if (tpl == NULL)

@@ -21,7 +21,7 @@ static struct BGModelSearch sunsetBgObjFind[] =
     { BG_MDL_CMP_END,    NULL },
 };
 
-static int obj_find_proc(int, struct StageBgObject *);
+static int bg_sunset_obj_find_proc(int, struct StageBgObject *);
 
 void bg_sunset_init(void)
 {
@@ -38,12 +38,12 @@ void bg_sunset_init(void)
         decodedStageLzPtr->bgObjects,
         decodedStageLzPtr->bgObjectCount,
         sunsetBgObjFind,
-        obj_find_proc);
+        bg_sunset_obj_find_proc);
     find_background_objects(
         decodedStageLzPtr->fgObjects,
         decodedStageLzPtr->fgObjectCount,
         sunsetBgObjFind,
-        obj_find_proc);
+        bg_sunset_obj_find_proc);
     if (work->layersCount == 0)
         return;
 
@@ -156,7 +156,7 @@ void bg_sunset_draw(void)
 
 void bg_sunset_interact(int a) {}
 
-static int obj_find_proc(int index, struct StageBgObject *bgObj)
+static int bg_sunset_obj_find_proc(int index, struct StageBgObject *bgObj)
 {
     struct BGSunsetWork *work = backgroundInfo.work;
 

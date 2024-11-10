@@ -288,7 +288,7 @@ void avDVDErrorHandling(void)
     }
 }
 
-static void read_callback(s32 result, DVDFileInfo *file)
+static void dvd_read_callback(s32 result, DVDFileInfo *file)
 {
     if (result < 0)
         s_readResult = result;
@@ -303,7 +303,7 @@ int avDVDRead(DVDFileInfo *file, void *arg1, u32 arg2, int arg3)
     BOOL r30 = FALSE;
 
     s_readResult = 1;
-    DVDReadAsyncPrio(file, arg1, arg2, arg3, read_callback, 2);
+    DVDReadAsyncPrio(file, arg1, arg2, arg3, dvd_read_callback, 2);
     do
     {
         if (r30 != 0)

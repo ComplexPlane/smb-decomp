@@ -24,7 +24,7 @@ static void draw_baby_hand(struct Ape *, struct BodyPartDesc *, struct BodyPart 
 static void draw_left_hand(struct Ape *, struct BodyPartDesc *, struct BodyPart *);
 static void draw_right_hand(struct Ape *, struct BodyPartDesc *, struct BodyPart *);
 static void assign_shape_colors_1(int arg0, struct GMAModel *arg1);
-static struct GMAShape *next_shape(struct GMAShape *);
+static struct GMAShape *code_3_next_shape(struct GMAShape *);
 static void draw_baby_head(struct Ape *ape, struct BodyPartDesc *arg1, struct BodyPart *unused2);
 static void draw_head(struct Ape *, struct BodyPartDesc *, struct BodyPart *);
 static void draw_ear(struct Ape *ape, struct BodyPartDesc *arg1, struct BodyPart *arg2);
@@ -830,12 +830,12 @@ static struct BodyPartDesc aiaiBodyPartDescLOD0[] =
 
 static struct BodyPartDesc aiaiBodyPartDescLOD1[] =
 {
-    {60,  5, {  0,   0,   0},            draw_head,       "obj_M_APE_KUBI"},    
-    { 6,  5, {  0,   0,   0},            draw_eye,        "M_APE_EYE"},    
-    {14,  5, {  0,   0,   0},            draw_aiai_hair,  "M_APE_HAIR"},    
-    {62, 10, {  0,   0,   0},            draw_left_hand,  "obj_M_APE_MT_L"},    
-    {65, 15, {  0,   0,   0},            draw_right_hand, "obj_M_APE_MT_R"},    
-    { 3,  5, {-0.029999999, 0.12, 0.1},  draw_ear,        "obj_M_APE_KUBI_EAR_L"},    
+    {60,  5, {  0,   0,   0},            draw_head,       "obj_M_APE_KUBI"},
+    { 6,  5, {  0,   0,   0},            draw_eye,        "M_APE_EYE"},
+    {14,  5, {  0,   0,   0},            draw_aiai_hair,  "M_APE_HAIR"},
+    {62, 10, {  0,   0,   0},            draw_left_hand,  "obj_M_APE_MT_L"},
+    {65, 15, {  0,   0,   0},            draw_right_hand, "obj_M_APE_MT_R"},
+    { 3,  5, {-0.029999999, 0.12, 0.1},  draw_ear,        "obj_M_APE_KUBI_EAR_L"},
     { 5,  5, {-0.029999999, -0.12, 0.1}, draw_ear,        "obj_M_APE_KUBI_EAR_R"},
 };
 
@@ -1276,7 +1276,7 @@ static struct GMAShape *u_get_shape_with_no_material(struct GMAModel *model)
     {
         if (shape->tevLayerCount == 0)
             return shape;
-        shape = next_shape(shape);
+        shape = code_3_next_shape(shape);
     }
     return NULL;
 }
@@ -1297,7 +1297,7 @@ static struct GMAShape *func_80086434_sub2(struct GMAModel *model)
                 return shape;
             var_r30_2 = 1;
         }
-        shape = next_shape(shape);
+        shape = code_3_next_shape(shape);
     }
     return NULL;
 }
@@ -1332,7 +1332,7 @@ static void assign_shape_colors_2(int colorId, struct GMAModel *model)
     shape->ambientColor = lbl_801C692C[colorId];
 }
 
-static struct GMAShape *next_shape(struct GMAShape *shape)
+static struct GMAShape *code_3_next_shape(struct GMAShape *shape)
 {
     int i;
     u8 *ptr = shape->dispLists;

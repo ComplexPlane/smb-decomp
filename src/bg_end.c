@@ -31,8 +31,8 @@ static struct BGModelSearch endBgObjFind[] =
 
 static void lbl_800654F4(struct GCMMatState_Unit *arg0);
 static void lbl_8006582C(struct GCMMatState_Unit *arg0);
-static int model_find_proc(int, struct GMAModelEntry *);
-static int obj_find_proc(int, struct StageBgObject *);
+static int bg_end_model_find_proc(int, struct GMAModelEntry *);
+static int bg_end_obj_find_proc(int, struct StageBgObject *);
 
 void bg_end_init(void)
 {
@@ -41,19 +41,19 @@ void bg_end_init(void)
     bg_default_init();
     if (work->unk0 == 0)
     {
-        find_background_gma_models(endBgModelFind, model_find_proc);
+        find_background_gma_models(endBgModelFind, bg_end_model_find_proc);
         work->unk0 = 1;
     }
     find_background_objects(
         decodedStageLzPtr->bgObjects,
         decodedStageLzPtr->bgObjectCount,
         endBgObjFind,
-        obj_find_proc);
+        bg_end_obj_find_proc);
     find_background_objects(
         decodedStageLzPtr->fgObjects,
         decodedStageLzPtr->fgObjectCount,
         endBgObjFind,
-        obj_find_proc);
+        bg_end_obj_find_proc);
     work->unk14 = lbl_8006582C;
     work->unk18 = lbl_800654F4;
     work->unk28 = 0.005555555555555556 * (0.8f + 0.4f * RAND_FLOAT());
@@ -181,7 +181,7 @@ static void lbl_8006582C(struct GCMMatState_Unit *arg0)
     arg0->unkC = sp2C;
 }
 
-static int model_find_proc(int index, struct GMAModelEntry *entry)
+static int bg_end_model_find_proc(int index, struct GMAModelEntry *entry)
 {
     struct BGEndWork *work = backgroundInfo.work;
 
@@ -203,7 +203,7 @@ static int model_find_proc(int index, struct GMAModelEntry *entry)
     return 1;
 }
 
-static int obj_find_proc(int index, struct StageBgObject *bgObj)
+static int bg_end_obj_find_proc(int index, struct StageBgObject *bgObj)
 {
     struct Effect effect;
 
