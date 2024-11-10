@@ -1,3 +1,6 @@
+#ifndef _DATA_BG_SPA_GMA_H_
+#define _DATA_BG_SPA_GMA_H_
+
 /* Model IDs for GMBE8P/files/test/bg/bg_spa.gma */
 enum
 {
@@ -35,3 +38,5 @@ enum
     /*0x001F*/ SPA_ROCKET_109_L_LOW,
     /*0x0020*/ SPA_ROCKET_109_R_LOW,
 };
+
+#endif

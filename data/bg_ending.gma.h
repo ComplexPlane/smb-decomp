@@ -1,3 +1,6 @@
+#ifndef _DATA_BG_ENDING_GMA_H_
+#define _DATA_BG_ENDING_GMA_H_
+
 /* Model IDs for bg_ending.gma */
 enum
 {
@@ -37,3 +40,5 @@ enum
     /*0x0021*/ END_CYL_CLOUD_G,
     /*0x0022*/ END_CYL_CLOUD_H,
 };
+
+#endif

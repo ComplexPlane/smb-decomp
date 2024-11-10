@@ -1,3 +1,6 @@
+#ifndef _DATA_BG_NIG_GMA_H_
+#define _DATA_BG_NIG_GMA_H_
+
 /* Model IDs for GMBE8P/files/test/bg/bg_nig.gma */
 enum
 {
@@ -130,3 +133,5 @@ enum
     /*0x007E*/ NIG_TREE,
     /*0x007F*/ NIG_BOX,
 };
+
+#endif

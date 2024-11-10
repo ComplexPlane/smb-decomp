@@ -1,3 +1,6 @@
+#ifndef _DATA_BG_PIL_GMA_H_
+#define _DATA_BG_PIL_GMA_H_
+
 /* Model IDs for GMBE8P/files/test/bg/bg_pil.gma */
 enum
 {
@@ -31,3 +34,5 @@ enum
     /*0x001B*/ PIL_AIRSHIP_A,
     /*0x001C*/ PIL_WATER_SPEC,
 };
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef _DATA_COMMON_GMA_H_
+#define _DATA_COMMON_GMA_H_
+
 /* Model IDs for common.gma */
 enum
 {
@@ -194,3 +197,5 @@ enum
     /*0x00BE*/ YEL_HEMI_INSIDE_L3,
     /*0x00BF*/ YEL_HEMI_OUTSIDE_L3,
 };
+
+#endif

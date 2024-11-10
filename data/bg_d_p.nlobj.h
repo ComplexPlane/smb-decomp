@@ -1,3 +1,6 @@
+#ifndef _DATA_BG_D_P_NLOBJ_H_
+#define _DATA_BG_D_P_NLOBJ_H_
+
 /* Model IDs for bg_d_p.bin */
 enum
 {
@@ -9,3 +12,5 @@ enum
     /*0x0005*/ NLMODEL_bg_d_p_ST_D_WATERLIGHT_01,
     /*0x0006*/ NLMODEL_bg_d_p_ST_D_WATERLIGHT_02,
 };
+
+#endif

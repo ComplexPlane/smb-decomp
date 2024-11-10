@@ -1,3 +1,6 @@
+#ifndef _DATA_BG_SND_GMA_H_
+#define _DATA_BG_SND_GMA_H_
+
 /* Model IDs for GMBE8P/files/test/bg/bg_snd.gma */
 enum
 {
@@ -52,3 +55,5 @@ enum
     /*0x0030*/ SAN_START_SIGN,
     /*0x0031*/ polyshadow01_emit,
 };
+
+#endif

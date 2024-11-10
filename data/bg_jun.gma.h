@@ -1,3 +1,6 @@
+#ifndef _DATA_BG_JUN_GMA_H_
+#define _DATA_BG_JUN_GMA_H_
+
 /* Model IDs for GMBE8P/files/test/bg/bg_jun.gma */
 enum
 {
@@ -32,3 +35,5 @@ enum
     /*0x001C*/ JUN_GROUND_ADV,
     /*0x001D*/ JUN_GOL_SKY,
 };
+
+#endif

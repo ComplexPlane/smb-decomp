@@ -1,3 +1,6 @@
+#ifndef _DATA_BG_J_P_NLOBJ_H_
+#define _DATA_BG_J_P_NLOBJ_H_
+
 /* Model IDs for bg_j_p.bin */
 enum
 {
@@ -44,3 +47,4 @@ enum
     /*0x0028*/ NLMODEL_bg_j_p_ST_J_MASTER,
 };
 
+#endif

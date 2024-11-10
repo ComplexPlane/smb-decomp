@@ -1,3 +1,6 @@
+#ifndef _DATA_BG_SUN_GMA_H_
+#define _DATA_BG_SUN_GMA_H_
+
 /* Model IDs for GMBE8P/files/test/bg/bg_sun.gma */
 enum
 {
@@ -29,3 +32,5 @@ enum
     /*0x0019*/ SUN_GOAL_R,
     /*0x001A*/ SUN_BOX,
 };
+
+#endif

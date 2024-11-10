@@ -1,3 +1,6 @@
+#ifndef _DATA_BG_MST_GMA_H_
+#define _DATA_BG_MST_GMA_H_
+
 /* Model IDs for GMBE8P/files/test/bg/bg_mst.gma */
 enum
 {
@@ -584,3 +587,5 @@ enum
     /*0x0244*/ N9P8,
     /*0x0245*/ N9P9,
 };
+
+#endif

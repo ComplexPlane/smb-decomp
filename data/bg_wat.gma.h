@@ -1,3 +1,6 @@
+#ifndef _DATA_BG_WAT_GMA_H_
+#define _DATA_BG_WAT_GMA_H_
+
 /* Model IDs for GMBE8P/files/test/bg/bg_wat.gma */
 enum
 {
@@ -46,3 +49,5 @@ enum
     /*0x002A*/ WAT_JAMABAR,
     /*0x002B*/ WAT_GOAL_G,
 };
+
+#endif

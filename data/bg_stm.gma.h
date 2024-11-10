@@ -1,3 +1,6 @@
+#ifndef _DATA_BG_STM_GMA_H_
+#define _DATA_BG_STM_GMA_H_
+
 /* Model IDs for GMBE8P/files/test/bg/bg_stm.gma */
 enum
 {
@@ -50,3 +53,5 @@ enum
     /*0x002E*/ STM_RAIN01,
     /*0x002F*/ STM_RAIN02,
 };
+
+#endif

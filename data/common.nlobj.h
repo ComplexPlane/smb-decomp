@@ -1,3 +1,6 @@
+#ifndef _DATA_COMMON_NLOBJ_H_
+#define _DATA_COMMON_NLOBJ_H_
+
 /* Model IDs for common_p.bin */
 enum
 {
@@ -67,3 +70,5 @@ enum
     /*0x003F*/ NLMODEL_common_SPOT_LIGHT_MULTI,
     /*0x0040*/ NLMODEL_common_OBJ_BANANA_ENDING,
 };
+
+#endif
