@@ -23,6 +23,9 @@
 #include "ord_tbl.h"
 #include "types.h"
 
+// Needed for gx struct, idk how accurate this is
+#include "../libraries/gx/__gx.h"
+
 static Mtx **s_animMtxPtrs;  // array of pointers to animation matrices, which are set by the animation system (mot_ape.c)
 static Mtx *s_transformMatrices;  // array of matrices that are the result of the matrices in
                                   // s_animMtxPtrs multiplied by mtxA. These arrays are uploaded to
@@ -1528,12 +1531,6 @@ static void *draw_effective_shape(struct GMAShape *shape, struct GMATevLayer *te
                 if (s_cullMode != cullMode)
                 {
                     // modify private GX state
-                    extern struct
-                    {
-                        u8 filler0[0x204];
-                        u32 genMode;
-                    } *gx;
-
                     u32 reg;
                     s_cullMode = cullMode;
                     reg = (gx->genMode & ~0xC000) | cullMode << 14;

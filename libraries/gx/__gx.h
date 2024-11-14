@@ -1,3 +1,6 @@
+#ifndef _LIB_GX_GX_H_
+#define _LIB_GX_GX_H_
+
 extern volatile u16 *__cpReg;
 extern volatile u32 *__piReg;
 
@@ -330,3 +333,5 @@ void __GXSetRange(f32, f32);
 void __GXFifoInit(void);
 void __GXPEInit(void);
 void __GXFlushTextureState(void);
+
+#endif

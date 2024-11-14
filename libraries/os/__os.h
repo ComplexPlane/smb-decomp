@@ -1,3 +1,6 @@
+#ifndef _LIB_OS_H_
+#define _LIB_OS_H_
+
 typedef struct OSSram
 {
     u16 checkSum;
@@ -40,3 +43,5 @@ BOOL EXIImm(int chan, u32 *, int, int, int);
 BOOL EXIDma(int chan, void *buffer, s32 size, int, int);
 BOOL EXISync(int chan);
 */
+
+#endif

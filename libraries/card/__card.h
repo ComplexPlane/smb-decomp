@@ -1,3 +1,6 @@
+#ifndef _LIB_CARD_H_
+#define _LIB_CARD_H_
+
 #define CARD_ATTR_PUBLIC  0x04u
 #define CARD_ATTR_NO_COPY 0x08u
 #define CARD_ATTR_NO_MOVE 0x10u
@@ -123,3 +126,5 @@ s32 __CARDUpdateFatBlock(s32 chan, u16* fat, CARDCallback callback);
 /* CARDMount.c */
 
 void __CARDMountCallback(s32 chan, s32 result);
+
+#endif
